@@ -7,6 +7,14 @@ export default class ShareDBKnex extends ShareDB {
     this.closed = false;
   }
 
+  close(cb) {
+    // NOTE: do we need to destroy knex connection?
+    this.closed = true;
+    if (cb) {
+      cb();
+    }
+  }
+
   async commit(collection, id, operation, snapshot, options, cb) {
     try {
       let [{ max }] = await this.knex("sharedb_op")
