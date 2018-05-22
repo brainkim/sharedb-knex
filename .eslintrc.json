@@ -1,0 +1,25 @@
+{
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "trailingComma": "all",
+        "arrowParens": "always"
+      }
+    ],
+    "linebreak-style": ["error", "unix"],
+    "no-console": 0
+  }
+}
