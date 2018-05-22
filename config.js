@@ -1,5 +1,5 @@
 export default {
   postgresql: {
-    url: "postgresql://brian@localhost/sharedb-knex",
+    url: "postgresql://brian@localhost/sharedb_knex_test",
   },
 };
