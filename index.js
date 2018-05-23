@@ -15,16 +15,20 @@ export default class ShareDBKnex extends ShareDB {
     }
   }
 
-  async commit(collection, id, operation, snapshot, options, cb) {
+  async commit(collection, id, operation, snapshot, __options, cb) {
     try {
       let [{ max }] = await this.knex("sharedb_op")
         .max("version")
         .where({ collection, doc_id: id });
+      // NOTE: operations start at 0, snapshots starts at 1.
+      // The max operation found in the db will be 1 version behind the
+      // operation and 2 versions behind the snapshot passed in above.
       if (max == null) {
-        max = 0;
+        max = -1;
       }
-      if (snapshot.v !== max + 1) {
-        return cb(null, false);
+      if (operation.v !== max + 1 || snapshot.v !== max + 2) {
+        cb(null, false);
+        return false;
       }
       await this.knex.transaction(async (trx) => {
         try {
@@ -43,7 +47,7 @@ export default class ShareDBKnex extends ShareDB {
           const snapshotBuilder = this.knex("sharedb_snapshot").transacting(
             trx,
           );
-          if (max === 0) {
+          if (max === -1) {
             await snapshotBuilder.insert({
               collection,
               doc_id: id,
@@ -61,6 +65,7 @@ export default class ShareDBKnex extends ShareDB {
                 doc_type: snapshot.type,
                 version: snapshot.v,
                 data: JSON.stringify(snapshot.data),
+                updated_at: this.knex.fn.now(),
               });
           }
         } catch (err) {
@@ -75,9 +80,9 @@ export default class ShareDBKnex extends ShareDB {
     }
   }
 
-  async getSnapshot(collection, id, fields, options, cb) {
+  async getSnapshot(collection, id, __fields, __options, cb) {
     try {
-      let snapshot = { id, v: 0 };
+      let snapshot = { id, v: 0, type: null };
       const [row] = await this.knex("sharedb_snapshot").where({
         collection,
         doc_id: id,
@@ -98,7 +103,7 @@ export default class ShareDBKnex extends ShareDB {
     }
   }
 
-  async getOps(collection, id, from, to, options, cb) {
+  async getOps(collection, id, from, to, __options, cb) {
     try {
       const rows = await this.knex("sharedb_op")
         .where({ collection, doc_id: id })

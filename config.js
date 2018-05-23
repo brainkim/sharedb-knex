@@ -1,5 +1,6 @@
-export default {
+require("dotenv").config();
+module.exports = {
   postgresql: {
-    url: "postgresql://brian@localhost/sharedb_knex_test",
+    url: process.env.POSTGRES_URL,
   },
 };

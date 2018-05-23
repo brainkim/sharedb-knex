@@ -1,24 +1,28 @@
 {
   "name": "sharedb-knex",
-  "version": "0.0.0-alpha",
-  "main": "index.js",
+  "version": "0.0.0",
+  "main": "lib/index.js",
   "author": "Brian Kim",
-  "license": "UNLICENSED",
-  "private": true,
+  "license": "MIT",
   "scripts": {
-    "develop": "nodemon --exec babel-node index.js",
-    "lint": "eslint *.js"
+    "test": "mocha --require @babel/polyfill --require @babel/register",
+    "lint": "eslint *.js",
+    "build": "webpack",
+    "prepare": "webpack"
   },
   "peerDependencies": {
     "knex": "^0.14.6",
     "sharedb": "^1.0.0-beta.8"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
+    "@babel/cli": "7.0.0-beta.44",
+    "@babel/core": "7.0.0-beta.44",
+    "@babel/preset-env": "7.0.0-beta.44",
+    "@babel/preset-stage-2": "7.0.0-beta.44",
     "babel-eslint": "^8.2.3",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-stage-2": "^6.24.1",
+    "babel-loader": "^8.0.0-beta.0",
     "chai": "^4.1.2",
+    "dotenv": "^5.0.1",
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.0",
@@ -27,6 +31,8 @@
     "nodemon": "^1.17.3",
     "pg": "^7.4.3",
     "prettier": "^1.12.1",
-    "sharedb": "^1.0.0-beta.8"
+    "sharedb": "^1.0.0-beta.8",
+    "webpack": "^4.8.3",
+    "webpack-cli": "^2.1.4"
   }
 }
