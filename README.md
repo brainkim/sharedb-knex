@@ -1,6 +1,6 @@
 # sharedb-knex
 
-⚠️⚠️⚠️ experimental and untested⚠️⚠️⚠️
+⚠️⚠️⚠️ experimental and untested ⚠️⚠️⚠️
 
 Knex database adapter for [sharedb](https://github.com/share/sharedb). This
 driver can be used both as a snapshot store and oplog.

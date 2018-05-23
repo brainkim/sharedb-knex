@@ -1,14 +1,13 @@
 const path = require("path");
 
 module.exports = {
-  mode: "none",
   entry: {
     index: "./index.js",
   },
   output: {
     path: path.resolve(__dirname, "lib"),
     filename: "index.js",
-    libraryTarget: "umd",
+    libraryTarget: "commonjs2",
   },
   externals: {
     sharedb: "sharedb",
