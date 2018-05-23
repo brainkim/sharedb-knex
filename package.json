@@ -1,6 +1,6 @@
 {
   "name": "sharedb-knex",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "lib/index.js",
   "author": "Brian Kim",
   "license": "MIT",
