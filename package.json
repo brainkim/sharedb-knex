@@ -1,6 +1,6 @@
 {
   "name": "sharedb-knex",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "lib/index.js",
   "author": "Brian Kim",
   "homepage": "https://github.com/brainkim/sharedb-knex",
@@ -10,7 +10,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "test": "mocha --require @babel/polyfill --require @babel/register",
+    "test": "mocha --require @babel/register",
     "lint": "eslint src",
     "build": "babel src --out-dir lib",
     "prepublishOnly": "npm run test && npm run build"
@@ -24,6 +24,7 @@
     "@babel/core": "^7.0.0-beta.51",
     "@babel/preset-env": "^7.0.0-beta.51",
     "@babel/preset-stage-2": "^7.0.0-beta.51",
+    "@babel/register": "^7.0.0-beta.51",
     "babel-eslint": "^8.2.5",
     "chai": "^4.1.2",
     "dotenv": "^6.0.0",
