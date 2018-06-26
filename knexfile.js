@@ -1,6 +1,5 @@
-require("babel-register");
-require("babel-polyfill");
-const config = require("./config").default;
+require("@babel/register");
+const config = require("./config");
 module.exports = {
   development: {
     client: "pg",

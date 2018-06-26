@@ -1,11 +1,11 @@
 /* eslint-env mocha */
 import { assert } from "chai";
 
-// TODO: figure out how to test this stuff
 import Knex from "knex";
-import config from "./config";
-import ShareDBKnex from "./index";
+import config from "../config";
+import ShareDBKnex from "../src/index";
 
+// TODO: figure out how to test this stuff
 describe("ShareDBKnex", function() {
   before(() => {
     this.knex = Knex({
