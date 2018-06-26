@@ -11,7 +11,7 @@ Doesn’t support queries.
 
 1. Create a knex migration and copy over `migrations/sharedb-knex-v1.js`.
 
-2. Instantiate a sharedb-knex instance and pass in a knex instance:
+2. Pass in a knex instance into db:
 
 ```javascript
 import Knex from "knex";
@@ -20,5 +20,5 @@ const knex = Knex({
   // your knex config
 });
 const db = new ShareDBKnex({ knex });
-const backend = new ShareDB({db});
+const backend = new ShareDB({ db });
 ```

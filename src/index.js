@@ -20,9 +20,7 @@ export default class ShareDBKnex extends ShareDB {
       let [{ max }] = await this.knex("sharedb_op")
         .max("version")
         .where({ collection, doc_id: id });
-      // NOTE: operations start at 0, snapshots starts at 1.
-      // The max operation found in the db will be 1 version behind the
-      // operation and 2 versions behind the snapshot passed in above.
+      // NOTE: Operations start at 0, snapshots start at 1. The max operation found in the db should be 1 version behind the current operation and 2 versions behind the current snapshot.
       if (max == null) {
         max = -1;
       }
@@ -32,10 +30,10 @@ export default class ShareDBKnex extends ShareDB {
       }
       await this.knex.transaction(async (trx) => {
         try {
-          await this.knex("sharedb_op")
+          await this.knex("sharedb_snapshot")
             .transacting(trx)
             .forUpdate()
-            .where({ collection, doc_id: id, version: max });
+            .where({ collection, doc_id: id });
           await this.knex("sharedb_op")
             .transacting(trx)
             .insert({
@@ -43,20 +41,21 @@ export default class ShareDBKnex extends ShareDB {
               doc_id: id,
               version: operation.v,
               operation: JSON.stringify(operation),
+              updated_at: this.knex.fn.now(),
             });
-          const snapshotBuilder = this.knex("sharedb_snapshot").transacting(
-            trx,
-          );
           if (max === -1) {
-            await snapshotBuilder.insert({
-              collection,
-              doc_id: id,
-              doc_type: snapshot.type,
-              version: snapshot.v,
-              data: JSON.stringify(snapshot.data),
-            });
+            await this.knex("sharedb_snapshot")
+              .transacting(trx)
+              .insert({
+                collection,
+                doc_id: id,
+                doc_type: snapshot.type,
+                version: snapshot.v,
+                data: JSON.stringify(snapshot.data),
+              });
           } else {
-            await snapshotBuilder
+            await this.knex("sharedb_snapshot")
+              .transacting(trx)
               .where({
                 collection,
                 doc_id: id,

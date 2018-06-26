@@ -6,32 +6,31 @@
   "license": "MIT",
   "scripts": {
     "test": "mocha --require @babel/polyfill --require @babel/register",
-    "lint": "eslint *.js",
-    "build": "webpack",
-    "prepare": "webpack"
+    "lint": "eslint src",
+    "build": "babel src --out-dir lib",
+    "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
     "knex": "^0.14.6",
     "sharedb": "^1.0.0-beta.8"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^8.2.3",
-    "babel-loader": "^7.1.4",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-stage-2": "^6.24.1",
+    "@babel/cli": "7.0.0-beta.51",
+    "@babel/core": "7.0.0-beta.51",
+    "@babel/preset-env": "7.0.0-beta.51",
+    "@babel/preset-stage-2": "7.0.0-beta.51",
+    "babel-eslint": "^8.2.5",
+    "babel-loader": "^8.0.0-beta.0",
     "chai": "^4.1.2",
-    "dotenv": "^5.0.1",
-    "eslint": "^4.19.1",
+    "dotenv": "^6.0.0",
+    "eslint": "^5.0.1",
     "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-prettier": "^2.6.1",
     "knex": "^0.14.6",
     "mocha": "^5.2.0",
-    "nodemon": "^1.17.3",
+    "nodemon": "^1.17.5",
     "pg": "^7.4.3",
-    "prettier": "^1.12.1",
-    "sharedb": "^1.0.0-beta.8",
-    "webpack": "^3.12.0"
+    "prettier": "^1.13.6",
+    "sharedb": "^1.0.0-beta.9"
   }
 }
